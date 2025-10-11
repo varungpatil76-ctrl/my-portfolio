@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio</title>
+
+  <style>
+    /* --- Global Styles --- */
+    body {
+      margin: 0;
+      background-color: #6E4738;
+      color: #E1D4C2;
+      font-family: 'Poppins', sans-serif;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    /* --- Fade-in Animation --- */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* --- Header --- */
+    header {
+      display: flex; justify-content: center; align-items: center;
+      padding: 20px 80px; margin: 30px 40px 0 40px;
+      background-color: #291C0E; color: #E1D4C2;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      border-radius: 20px;
+      animation: slideDown 1s ease-out;
+    }
+
+    header h1 { font-style: italic; font-weight: 600; }
+
+    @keyframes slideDown {
+      from { transform: translateY(-40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* --- Layout Grid --- */
+    .container {
+      display: grid;
+      grid-template-columns: 2fr 2fr 1fr;
+      gap: 20px;
+      padding: 40px;
+    }
+
+    /* --- Intro Section --- */
+    .intro {
+      background-color: #291C0E;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      animation: slideLeft 1.2s ease-out;
+    }
+
+    @keyframes slideLeft {
+      from { transform: translateX(-80px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    .intro h2 { font-size: 60px; margin-bottom: 20px; }
+    .intro p { font-size: 25px; line-height: 2.0; }
+
+    /* --- Photo Section --- */
+    .photo {
+      background-color: #291C0E;
+      border-radius: 15px;
+      display: flex; justify-content: center; align-items: center;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      animation: zoomIn 1.5s ease-out;
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .photo img {
+      border-radius: 15px;
+      width: 100%;
+      max-width: 300px;
+      object-fit: cover;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .photo img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+    }
+
+    /* --- Scrollable Section --- */
+    .scroll-section {
+      display: flex; flex-direction: column; align-items: center; gap: 40px;
+      height: 500px; overflow-y: auto;
+      background-color: #291C0E; padding: 30px; border-radius: 20px;
+      animation: slideRight 1.2s ease-out;
+    }
+
+    @keyframes slideRight {
+      from { transform: translateX(80px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    .scroll-section::-webkit-scrollbar { width: 10px; }
+    .scroll-section::-webkit-scrollbar-thumb {
+      background-color: #ffa60000;
+      border-radius: 10px;
+    }
+
+    /* --- Section Boxes --- */
+    .skills, .projects {
+      width: 80%; max-width: 700px;
+      background-color: #291C0E;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      display: flex; flex-direction: column; gap: 15px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .skills:hover, .projects:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(225, 212, 194, 0.2);
+    }
+
+    .section-title {
+      text-align: center; font-size: 26px; font-weight: 700;
+      color: #E1D4C2; margin-bottom: 10px;
+    }
+
+    .skill, .project {
+      background-color: #8d131300;
+      color: #E1D4C2;
+      border-radius: 10px;
+      padding: 15px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .skill:hover, .project:hover {
+      transform: scale(1.05);
+      background-color: #3b2a17;
+      box-shadow: 0 0 15px rgba(225, 212, 194, 0.25);
+    }
+
+    .dropdown {
+      display: none;
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #ffffff00;
+      color: #E1D4C2;
+      border-radius: 8px;
+      font-size: 14px;
+      text-align: left;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .skill.active .dropdown, .project.active .dropdown { display: block; }
+
+    /* --- Contact Section --- */
+    .contact {
+      grid-column: 1 / span 3;
+      background-color: #291C0E;
+      border-radius: 15px;
+      padding: 30px;
+      margin-top: 20px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 600;
+      color: #E1D4C2;
+      animation: fadeIn 1.5s ease;
+    }
+
+    .contact button {
+      background-color: #291C0E;
+      color: #E1D4C2;
+      border: none;
+      padding: 12px 25px;
+      margin: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease, transform 0.2s, box-shadow 0.3s;
+    }
+
+    .contact button:hover {
+      background-color: #3b2a17;
+      transform: translateY(-3px);
+      box-shadow: 0 0 10px rgba(225, 212, 194, 0.3);
+    }
+
+    /* --- Footer --- */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #6E4738;
+      color: #E1D4C2;
+      font-weight: 500;
+      animation: fadeIn 2s ease;
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 900px) {
+      .container { grid-template-columns: 1fr; }
+      .intro h2 { font-size: 42px; }
+      .intro p { font-size: 20px; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header><h1>Varun G Patil</h1></header>
+
+  <div class="container">
+    <!-- INTRO -->
+    <div class="intro">
+      <h2>The Chill Guy</h2>
+      <p>I’m an engineer who loves solving problems with smart, effective solutions.
+         Passionate about using AI to simplify life and make things effortlessly cool.</p>
+    </div>
+
+    <!-- PHOTO -->
+    <div class="photo">
+      <img src="https://i.postimg.cc/6qG0S6cx/22.jpg" alt="Your Photo" />
+    </div>
+
+    <!-- SCROLLABLE SECTION -->
+    <div class="scroll-section">
+
+      <!-- SKILLS -->
+      <div class="skills">
+        <h2 class="section-title">Skills</h2>
+        <div class="skill" onclick="toggleDropdown(this)"><p>UI/UX design</p><div class="dropdown"><p>I have earned a Google UI/UX Career certificate, and have worked on Figma.</p></div></div>
+        <div class="skill" onclick="toggleDropdown(this)"><p>AI Fluence</p><div class="dropdown"><p>I stay updated with the latest AI tools and use them to boost productivity.</p></div></div>
+        <div class="skill" onclick="toggleDropdown(this)"><p>App Development</p><div class="dropdown"><p>I have built Android apps using Java and Kotlin in Android Studio.</p></div></div>
+      </div>
+
+      <!-- PROJECTS -->
+      <div class="projects">
+        <h2 class="section-title">Projects</h2>
+        <div class="project" onclick="toggleDropdown(this)"><p>AI Vision</p><div class="dropdown"><p>AI-based face recognition attendance tracker using ESP32-CAM.</p></div></div>
+        <div class="project" onclick="toggleDropdown(this)"><p>IoT</p><div class="dropdown"><p>IoT projects including ESP32-CAM and heart rate monitor systems.</p></div></div>
+        <div class="project" onclick="toggleDropdown(this)"><p>Unity Engine</p><div class="dropdown"><p>A sandbox-style game developed in Unity Engine.</p></div></div>
+      </div>
+
+    </div>
+
+    <!-- CONTACT -->
+    <div class="contact">
+      <p>Contact Me</p>
+      <button id="instaBtn">Instagram</button>
+      <button id="emailBtn">Email</button>
+      <button id="threadsBtn">Threads</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>© 2025 Varun G Patil | Portfolio Design</footer>
+
+  <!-- SCRIPT -->
+  <script>
+    function toggleDropdown(item) { item.classList.toggle("active"); }
+
+    document.getElementById('instaBtn').addEventListener('click', () => {
+      window.open('https://www.instagram.com/igvarunpatil/', '_blank');
+    });
+    document.getElementById('emailBtn').addEventListener('click', () => {
+      window.location.href = 'mailto:vaungpatil76@email.com';
+    });
+    document.getElementById('threadsBtn').addEventListener('click', () => {
+      window.open('https://www.threads.net/', '_blank');
+    });
+  </script>
+</body>
+</html>
